@@ -1,0 +1,70 @@
+/*@!Encoding:1252*/
+includes
+{
+  
+}
+
+variables
+{
+  
+}
+on envVar lgn_Variable
+  
+{
+  $Engine_Message::Ignition_Signal=getValue(this);
+}
+on envVar Acc_Variable
+{
+  $Acceleration_Message::Velocity_Signal=getValue(this);
+}
+on envVar Brake_Variable
+{
+  $Brake_Message::Brake_Pedal_Signal=getValue(this);
+  if ($Brake_Message::Brake_Pedal_Signal==0)
+  {
+    $Acceleration_Message::Velocity_Signal=1;
+  }
+  else if ($Brake_Message::Brake_Pedal_Signal==1)
+  {
+    $Acceleration_Message::Velocity_Signal=getValue(this);
+  }
+}
+
+on envVar Lock_Variable
+{
+  $Precrash_Lock_Message::Seatbelt_lock_Signal=getValue(this);
+}
+on envVar Seatbelt_Variable
+{
+  $Seatbelt_Message::Seatbelt_Status_Signal=getValue(this);
+}
+
+on message Precrash_Lock_Message
+{
+  if($Engine_Message::Ignition_Signal==1)
+  {
+    if($Acceleration_Message::Velocity_Signal>0)
+    {
+      if($Seatbelt_Message::Seatbelt_Status_Signal==1)
+      {
+         if($Brake_Message::Brake_Pedal_Signal==1)
+      {
+        $Precrash_Lock_Message::Seatbelt_lock_Signal=1;
+        write("pre crase seatbelt tensioning activated");
+        
+      }
+      else{
+        $Precrash_Lock_Message::Seatbelt_lock_Signal=0;
+        write("wear your seatbelt");
+      }
+    }
+      else{
+        write("vehicle is at rest not moving");
+      }
+  }
+    else
+    {
+      write("engine is off");
+    }
+}
+}

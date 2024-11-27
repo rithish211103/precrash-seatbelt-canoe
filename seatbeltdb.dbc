@@ -1,0 +1,68 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: Seatbelt_Node BCM_Node
+
+
+BO_ 1280 Precrash_Lock_Message: 1 Seatbelt_Node
+ SG_ Seatbelt_lock_Signal : 0|8@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 512 Seatbelt_Message: 1 Seatbelt_Node
+ SG_ Seatbelt_Status_Signal : 8|8@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 1024 Engine_Message: 1 BCM_Node
+ SG_ Ignition_Signal : 0|8@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 256 Brake_Message: 1 BCM_Node
+ SG_ Brake_Pedal_Signal : 0|8@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 768 Acceleration_Message: 1 BCM_Node
+ SG_ Velocity_Signal : 0|8@1+ (1,0) [0|240] "" Vector__XXX
+
+
+
+EV_ lgn_Variable: 0 [0|1] "" 0 1 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Seatbelt_Variable: 0 [0|1] "" 0 2 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Lock_Variable: 0 [0|1] "" 0 3 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Brake_Variable: 0 [0|1] "" 0 4 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+EV_ Acc_Variable: 0 [0|576] "" 0 5 DUMMY_NODE_VECTOR0 Vector__XXX;
+
+BA_DEF_  "BusType" STRING ;
+BA_DEF_DEF_  "BusType" "CAN";
+
